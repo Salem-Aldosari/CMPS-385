@@ -1,113 +1,113 @@
 #include <iostream>
 using namespace std;
 
-// Node structure for the doubly linked list
-struct Node {
-    int data;     // Data stored in the node
-    Node* prev;   // Pointer to the previous node
-    Node* next;   // Pointer to the next node
 
-    Node(int val) : data(val), prev(nullptr), next(nullptr) {} // Constructor to initialize a new node
+struct Node {
+    int data;     
+    Node* prev;   
+    Node* next;   
+
+    Node(int val) : data(val), prev(nullptr), next(nullptr) {} 
 };
 
-// Function to insert a node at a specific index
-int DoubleLinkedlistInsert(int data, int index, Node*& head) { // head is passed by reference
-    Node* newNode = new Node(data); // Create a new node with the given data
-    if (index < 0) { // Check for invalid index (negative)
+
+int DoubleLinkedlistInsert(int data, int index, Node*& head) { 
+    Node* newNode = new Node(data); 
+    if (index < 0) { 
         cout << "Invalid index" << endl;
-        return -1; // Return error code
+        return -1; 
     }
-    if (head == nullptr) { // Check if the list is empty
-        if (index == 0) { // If the list is empty and index is 0
-            head = newNode; // Make the new node the head
-            return 0; // Return success code
+    if (head == nullptr) { 
+        if (index == 0) { 
+            head = newNode; 
+            return 0; 
         }
-        else { // If the list is empty and index is not 0
+        else { 
             cout << "Index out of bounds" << endl;
-            return -1; // Return error code
+            return -1; 
         }
     }
 
-    if (index == 0) { // If index is 0, insert at the beginning
-        newNode->next = head; // New node's next points to the current head
-        head->prev = newNode; // Current head's previous points to the new node
-        head = newNode; // Update the head to the new node
-        return 0; // Return success code
+    if (index == 0) { 
+        newNode->next = head; 
+        head->prev = newNode; 
+        head = newNode; 
+        return 0; 
     }
 
-    Node* temp = head; // Start from the head
-    for (int i = 0; i < index - 1; i++) { // Traverse to the node before the insertion point
-        if (temp->next == nullptr) { // Check if index is out of bounds
+    Node* temp = head; 
+    for (int i = 0; i < index - 1; i++) { 
+        if (temp->next == nullptr) { 
             cout << "Index out of bounds" << endl;
-            return -1; // Return error code
+            return -1; 
         }
-        temp = temp->next; // Move to the next node
+        temp = temp->next; 
     }
-    newNode->next = temp->next; // New node's next points to the node after the insertion point
-    if (temp->next != nullptr) { // If there's a node after the insertion point
-        temp->next->prev = newNode; // The node after the insertion point's previous points to the new node
+    newNode->next = temp->next; 
+    if (temp->next != nullptr) { 
+        temp->next->prev = newNode; 
     }
-    temp->next = newNode; // The node before the insertion point's next points to the new node
-    newNode->prev = temp; // New node's previous points to the node before the insertion point
-    return 0; // Return success code
+    temp->next = newNode; 
+    newNode->prev = temp; 
+    return 0; 
 }
 
-// Function to delete a node at a specific index
-int DoubleLinkedlistDelete(int index, Node*& head) { // head is passed by reference
-    if (head == nullptr || index < 0) { // Check for empty list or invalid index
+
+int DoubleLinkedlistDelete(int index, Node*& head) { 
+    if (head == nullptr || index < 0) { 
         cout << "Invalid index or empty list" << endl;
-        return -1; // Return error code
+        return -1; 
     }
-    Node* temp = head; // Start from the head
-    if (index == 0) { // If index is 0, delete the head
-        head = temp->next; // Update the head to the next node
-        if (head != nullptr) { // If there's a new head
-            head->prev = nullptr; // New head's previous points to null
+    Node* temp = head; 
+    if (index == 0) { 
+        head = temp->next; 
+        if (head != nullptr) { 
+            head->prev = nullptr; 
         }
-        delete temp; // Delete the old head
-        return 0; // Return success code
+        delete temp; 
+        return 0; 
     }
-    for (int i = 0; i < index; i++) { // Traverse to the node to be deleted
-        if (temp == nullptr) { // Check if index is out of bounds
+    for (int i = 0; i < index; i++) { 
+        if (temp == nullptr) { 
             cout << "Index out of bounds" << endl;
-            return -1; // Return error code
+            return -1; 
         }
-        temp = temp->next; // Move to the next node
+        temp = temp->next; 
     }
-    if (temp->prev != nullptr) { // If there's a node before the node to be deleted
-        temp->prev->next = temp->next; // Previous node's next points to the node after the node to be deleted
+    if (temp->prev != nullptr) { 
+        temp->prev->next = temp->next; 
     }
-    if (temp->next != nullptr) { // If there's a node after the node to be deleted
-        temp->next->prev = temp->prev; // Next node's previous points to the node before the node to be deleted
+    if (temp->next != nullptr) { 
+        temp->next->prev = temp->prev; 
     }
-    delete temp; // Delete the node
-    return 0; // Return success code
+    delete temp; 
+    return 0; 
 }
 
-// Function to print the doubly linked list
+
 void PrintList(Node* head) {
-    Node* temp = head; // Start from the head
-    while (temp != nullptr) { // Traverse until the end of the list
-        cout << temp->data << " <-> "; // Print the data and the double arrow
-        temp = temp->next; // Move to the next node
+    Node* temp = head; 
+    while (temp != nullptr) { 
+        cout << temp->data << " <-> "; 
+        temp = temp->next; 
     }
-    cout << "NULL" << endl; // Print NULL to indicate the end of the list
+    cout << "NULL" << endl; 
 }
 
 int main() {
-    Node* head = nullptr; // Initialize an empty list
+    Node* head = nullptr; 
 
-    DoubleLinkedlistInsert(50, 0, head); // Insert 50 at index 0
-    DoubleLinkedlistInsert(70, 1, head); // Insert 70 at index 1
-    DoubleLinkedlistInsert(90, 2, head); // Insert 90 at index 2
-    DoubleLinkedlistInsert(10, 1, head); // Insert 10 at index 1
+    DoubleLinkedlistInsert(50, 0, head); 
+    DoubleLinkedlistInsert(70, 1, head); 
+    DoubleLinkedlistInsert(90, 2, head); 
+    DoubleLinkedlistInsert(10, 1, head); 
 
     cout << "List after insertions:" << endl;
-    PrintList(head); // Print the list
+    PrintList(head); 
 
-    DoubleLinkedlistDelete(2, head); // Delete the node at index 2
+    DoubleLinkedlistDelete(2, head); 
     cout << "List after deleting index 2:" << endl;
-    PrintList(head); // Print the list after deletion
+    PrintList(head); 
 
-    return 0; // Exit the program
+    return 0; 
 }
