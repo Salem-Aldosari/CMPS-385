@@ -1,38 +1,38 @@
 #include <iostream>
 #include <stdexcept>
 
-const int MAX_STACK = 100; // Define maximum stack size.
+const int MAX_STACK = 100; 
 
-class StackException : public std::exception { // Custom exception class for stack errors.
+class StackException : public std::exception { 
 private:
     std::string message;
 public:
-    explicit StackException(const std::string& err) : message(err) {} // Constructor.
-    const char* what() const noexcept override { return message.c_str(); } // Returns error message.
+    explicit StackException(const std::string& err) : message(err) {} 
+    const char* what() const noexcept override { return message.c_str(); } 
 };
 
 class Stack {
 private:
-    int items[MAX_STACK]; // Array to store stack elements.
-    int top; // Index of the top element.
+    int items[MAX_STACK]; 
+    int top; 
 
 public:
-    Stack() : top(-1) {} // Constructor: initializes top to -1 (empty stack).
+    Stack() : top(-1) {} 
 
-    bool isEmpty() const { // Checks if the stack is empty.
+    bool isEmpty() const { 
         return top < 0;
     }
 
-    void push(const int& newItem) { // Pushes an element onto the stack.
-        if (top >= MAX_STACK - 1) // Checks for stack overflow.
+    void push(const int& newItem) { 
+        if (top >= MAX_STACK - 1) 
             throw StackException("StackException: Stack full on push");
-        items[++top] = newItem; // Increments top and adds the new item.
+        items[++top] = newItem; 
     }
 
-    void topAndPop(int& stackTop) { // Retrieves and removes the top element.
-        if (isEmpty()) // Checks for stack underflow.
+    void topAndPop(int& stackTop) { 
+        if (isEmpty()) 
             throw StackException("StackException: Stack empty on topAndPop");
-        stackTop = items[top--]; // Retrieves the top element and decrements top.
+        stackTop = items[top--]; 
     }
 };
 
@@ -45,18 +45,18 @@ int main() {
         s.push(10);
 
         int topElement;
-        s.topAndPop(topElement); // Pops 50
+        s.topAndPop(topElement); 
         std::cout << "Top element popped: " << topElement << std::endl;
 
-        s.topAndPop(topElement); // Pops 40
+        s.topAndPop(topElement); 
         std::cout << "Top element popped: " << topElement << std::endl;
 
-        s.topAndPop(topElement); // Pops 10
+        s.topAndPop(topElement); 
         std::cout << "Top element popped: " << topElement << std::endl;
 
     }
-    catch (const StackException& e) { // Catches stack exceptions.
-        std::cerr << e.what() << std::endl; // Prints the error message.
+    catch (const StackException& e) { 
+        std::cerr << e.what() << std::endl; 
     }
 
     return 0;
