@@ -1,11 +1,11 @@
 ﻿#include <iostream>
 #include <vector>
 #include <algorithm>
-#include <stdexcept> // For runtime_error
+#include <stdexcept> 
 
 using namespace std;
 
-const int ORDER = 3; // Max keys per node
+const int ORDER = 3; 
 
 struct BTreeNode {
     vector<int> keys;
@@ -15,7 +15,7 @@ struct BTreeNode {
     BTreeNode(bool leaf) : isLeaf(leaf) {}
 };
 
-// Helper function to insert into a node at correct position
+
 void insertKeySorted(vector<int>& keys, int key) {
     auto it = upper_bound(keys.begin(), keys.end(), key);
     keys.insert(it, key);
@@ -182,13 +182,13 @@ public:
     }
 };
 
-// Assignment-style wrapper function
+
 int insetBminustree(int key, BTree& B) {
     B.insert(key);
     return 1;
 }
 
-// Main function with required test case
+
 int main() {
     BTree tree;
     vector<int> values = { 78, 52, 81, 40, 33, 90, 85, 20, 38 };
